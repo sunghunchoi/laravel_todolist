@@ -10,7 +10,15 @@ class TodolistFormController extends Controller
     public function index()
     {
         $todos = Todo::orderBy('id','asc')->get();
-        return view('todo_list', ["todos" => $todos]);
+        // 見積時間の合計を求める
+        $estimated_hour_sum = 0;
+        foreach ($todos as $todo) {
+            $estimated_hour_sum += $todo->estimate_hour;
+        }
+        return view('todo_list', [
+            "todos" => $todos,
+            "estimated_hour_sum" => $estimated_hour_sum,
+        ]);
     }
 
     public function createPage()
