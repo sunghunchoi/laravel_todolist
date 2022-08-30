@@ -28,6 +28,13 @@ class TodolistFormController extends Controller
 
     public function create(Request $request)
     {
+        $validation = $request->validate([
+            'task_name' => 'required',
+            'task_description' => 'required',
+            'assign_person_name' => 'required',
+            'estimate_hour' => 'required'
+        ]);
+
         $todo = new Todo();
         $todo->task_name = $request->task_name;
         $todo->task_description = $request->task_description;
